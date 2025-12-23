@@ -6,7 +6,12 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
+
+
+RUN npm ci
+
+RUN npm list typescript
+RUN which tsc
 
 FROM nginx:stable-alpine
 
