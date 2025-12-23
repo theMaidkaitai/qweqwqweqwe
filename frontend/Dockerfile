@@ -3,7 +3,7 @@ FROM node:20-alpine AS build
 WORKDIR /app  # ← ДОБАВЛЕНО: Рабочая директория
 
 COPY package.json package-lock.json ./
-RUN npm ci --silent  # ← Лучше чем npm install для production
+RUN npm install
 
 COPY . .
 RUN npm run build
