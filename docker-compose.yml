@@ -79,9 +79,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: frontend-container
-    expose:
-      - "80"
+    ports:
+      - "80:80"
     networks:
+    
       - app-network
     restart: unless-stopped
     healthcheck:  
