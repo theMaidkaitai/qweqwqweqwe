@@ -84,7 +84,7 @@ services:
     networks:
       - app-network
     restart: unless-stopped
-    healthcheck:  # ← Добавить healthcheck для frontend
+    healthcheck:  
       test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
       interval: 30s
       timeout: 5s

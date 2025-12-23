@@ -1,13 +1,18 @@
-FROM node:alpine as build
-COPY package.json package.json
-RUN npm install
+FROM node:20-alpine AS build
+
+WORKDIR /app  # ← ДОБАВЛЕНО: Рабочая директория
+
+COPY package.json package-lock.json ./
+RUN npm ci --silent  # ← Лучше чем npm install для production
+
 COPY . .
-RUN npm build
+RUN npm run build
 
 FROM nginx:stable-alpine
-COPY --from=build /dist /usr/share/nginx/html
-COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 5173
 
+COPY --from=build /app/dist /usr/share/nginx/html  
+
+
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
