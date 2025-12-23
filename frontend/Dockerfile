@@ -11,7 +11,6 @@ COPY . .
 RUN npm ci
 
 RUN npm list typescript
-RUN which tsc
 
 FROM nginx:stable-alpine
 
