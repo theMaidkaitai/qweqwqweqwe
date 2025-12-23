@@ -1,19 +1,16 @@
 FROM node:20-alpine AS build
 
 WORKDIR /app
+RUN npm install -g typescript
+
 
 COPY package.json package-lock.json ./
 
 RUN npm ci
-
 COPY . .
-
 RUN npm run build
 
-RUN echo "=== Проверка сборки ==="
-RUN ls -la /app
-RUN find /app -name "dist" -type d 2>/dev/null || echo "dist не найден, ищу build..."
-RUN find /app -name "build" -type d 2>/dev/null || echo "build не найден"
+
 
 FROM nginx:stable-alpine
 
