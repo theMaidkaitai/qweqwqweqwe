@@ -1,6 +1,5 @@
 version: '3.8'
 
-
 networks:
   app-network:
     driver: bridge  
@@ -26,7 +25,6 @@ services:
       - app-network
     restart: unless-stopped
 
-    
   backend:
     build:
       context: ./backend
@@ -47,13 +45,26 @@ services:
       - SPRING_DATASOURCE_HIKARI_INITIALIZATION-FAIL-TIMEOUT=0
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
       - SPRING_PROFILES_ACTIVE=prod
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK=DEBUG
+      - LOGGING_LEVEL_COM_ZAXXER_HIKARI=DEBUG
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "nc -z localhost 8080 || exit 1"]
+
       interval: 30s
       timeout: 10s
       retries: 10
-      start_period: 120s 
+      start_period: 120s
+    command: >
+      sh -c "
+      echo 'Waiting for PostgreSQL to be ready...';
+      while ! nc -z db 5432; do
+        sleep 2;
+        echo 'Still waiting for PostgreSQL...';
+      done;
+      echo 'PostgreSQL is ready! Starting Spring Boot...';
+      java -jar /app.jar
+      "
 
   db:
     image: postgres:16-alpine
@@ -78,13 +89,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: frontend-container
-
+    expose:
+      - "80"
     networks:
-    
       - app-network
     restart: unless-stopped
-    healthcheck:  
-      test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
