@@ -68,7 +68,7 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 30
 
   frontend:
     build:
@@ -84,4 +84,4 @@ services:
       test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
       interval: 30s
       timeout: 5s
-      retries: 3
+      retries: 30
