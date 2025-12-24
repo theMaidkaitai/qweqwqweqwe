@@ -14,6 +14,7 @@ const authInceptor = (config: { headers: { authorization: string; }; }) => {
     return config
 }
 
+// @ts-ignore
 $authHostUser.interceptors.request.use(authInceptor)
 
 export {

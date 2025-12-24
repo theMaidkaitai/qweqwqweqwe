@@ -15,7 +15,7 @@ function AuthPage() {
 
     const navigate = useNavigate();
 
-    const clickReg = async (e) => {
+    const clickReg = async (e: any) => {
         e.preventDefault();
         try {
             const data = await login(nick, email, password);

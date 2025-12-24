@@ -1,11 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Context} from "../main.tsx";
+import  {useEffect, useState} from 'react';
 import {getOneById} from "../http/notesApi.ts";
 import {useParams} from "react-router-dom";
 
 const NotePages = () => {
 
-    const { notes } = useContext(Context);
 
     const [note, setNote] = useState(null)
 
