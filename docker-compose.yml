@@ -49,10 +49,11 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health/liveness"]
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 10
+      start_period: 120s 
 
   db:
     image: postgres:16-alpine
