@@ -12,6 +12,11 @@ services:
   nginx:
     image: nginx:stable-alpine
     container_name: fullstackApp
+    depends_on:
+      backend:
+        condition: service_healthy  
+      frontend:
+        condition: service_started
     ports:
       - "80:80"
       - "443:443"
@@ -46,7 +51,7 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "nc -z localhost 8080 || exit 0"]
+      test: ["CMD-SHELL", "nc -z localhost 8080"]
       interval: 30s
       timeout: 10s
       retries: 10
