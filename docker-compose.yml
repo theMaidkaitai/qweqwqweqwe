@@ -40,12 +40,12 @@ services:
       db:
         condition: service_healthy
     environment:
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/FinanceNotes
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD:-SUBD123}
       - SPRING_DATASOURCE_HIKARI_CONNECTION-TIMEOUT=30000
       - SPRING_DATASOURCE_HIKARI_INITIALIZATION-FAIL-TIMEOUT=0
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
       - SPRING_PROFILES_ACTIVE=prod
     restart: unless-stopped
     healthcheck:
