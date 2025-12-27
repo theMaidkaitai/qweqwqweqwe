@@ -37,8 +37,8 @@ services:
       - "8080"
     container_name: backend-container
     depends_on:
-    db:
-      condition: service_healthy
+      db:
+        condition: service_healthy
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/FinanceNotes
       - SPRING_DATASOURCE_USERNAME=postgres
