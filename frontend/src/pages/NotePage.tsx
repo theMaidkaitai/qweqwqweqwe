@@ -21,7 +21,7 @@ const NotesPage = observer(() => {
             <div className={"NotesPageWrapper"}>
                 <div className={"NotesPage"}>
                     {notes._notes.map(note => (
-                        <NotePageComponent  key = {note.id} note={note}/>
+                        <NotePageComponent  note={note}/>
                     ))}
                 </div>
             </div>

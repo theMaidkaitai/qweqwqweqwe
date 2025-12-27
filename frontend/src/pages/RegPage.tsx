@@ -15,7 +15,7 @@ const RegPage = observer(() => {
 
     const navigate = useNavigate();
 
-    const clickReg = async (e) => {
+    const clickReg = async (e: any) => {
         e.preventDefault();
         try {
             const data = await registration(nick, email, password);
