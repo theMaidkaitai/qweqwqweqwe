@@ -2,11 +2,11 @@ import axios from "axios";
 
 
 const $host = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "http://87.228.88.252",
 })
 
 const $authHostUser = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "http://87.228.88.252",
 })
 
 const authInceptor = (config: { headers: { authorization: string; }; }) => {
